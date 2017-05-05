@@ -1,0 +1,44 @@
+<h1 class="page-header"><%= @player.name %>'s Activity <%= @year %></h1>
+<div class="select-year">
+  <select id="activity-year" class="form-control">
+    <% year_range = Range.new(2000, Date.today.year) %>
+    <% year_range.reverse_each do |y| %>
+    <option value="<%= y %>" <%= "selected" if y == @year.to_i %>><%= y %></option>
+    <% end %>
+  </select>
+</div>
+<div class="player-links">
+  <%= link_to "#{@player.name}'s ATP official page", "http://www.atpworldtour.com/en/players/xx/#{@player.url_id}/overview", { class: "btn btn-link btn-sm", target: "_balnk" }%>
+</div>
+<div class="activity-section">
+  <h2>vs Top10 <small>Win:<%= @activities_vstop10_win_count %> / Lose:<%= @activities_vstop10_lose_count %></small></h2>
+  <% if @activities_vstop10.first %>
+    <%= render 'activity', activities: @activities_vstop10 %>
+  <% else %>
+    <p>No activities</p>
+  <% end %>
+</div>
+<div class="activity-section">
+  <h2>vs Higher Ranking <small>Win:<%= @activities_higher_win_count %> / Lose:<%= @activities_higher_lose_count %></small></h2>
+  <% if @activities_higher.first %>
+    <%= render 'activity', activities: @activities_higher %>
+  <% else %>
+    <p>No activities</p>
+  <% end %>
+</div>
+<div class="activity-section">
+  <h2>vs Lower Ranking <small>Win:<%= @activities_lower_win_count %> / Lose:<%= @activities_lower_lose_count %></small></h2>
+  <% if @activities_lower.first %>
+    <%= render 'activity', activities: @activities_lower %>
+  <% else %>
+    <p>No activities</p>
+  <% end %>
+</div>
+<div class="activity-section">
+  <h2>All <small>Win:<%= @activities_all_win_count %> / Lose:<%= @activities_all_lose_count %></small></h2>
+  <% if @activities.first %>
+    <%= render 'activity', activities: @activities %>
+  <% else %>
+    <p>No activities</p>
+  <% end %>
+</div>
